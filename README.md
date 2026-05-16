@@ -6,7 +6,7 @@ Funcionamento:
    - Next.js para a interface.
    - FastAPI para processar lotes.
    - Exa e Tavily como agentes para WebScrapping.
-   - 
+     
 ## Base de Dados pelo NEON para buscar
 
 - Preço
