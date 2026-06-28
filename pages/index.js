@@ -1,16 +1,1 @@
-export default function Home() {
-    return (
-          <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ textAlign: 'center', color: 'white' }}>
-        <h1 style={{ fontSize: '3em', marginBottom: '20px' }}>🔍 AI Search Tool</h1>
-        <p style={{ fontSize: '1.5em', marginBottom: '40px', opacity: 0.9 }}>Ferramenta de busca Web powered by IA</p>
-        <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>Usando EXA AI + Next.js + FastAPI</p>
-        <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '30px', borderRadius: '12px', backdropFilter: 'blur(10px)', maxWidth: '500px' }}>
-          <p>✨ Interface moderna</p>
-          <p>🤖 Inteligência Artificial</p>
-          <p>⚡ Busca rápida e relevante</p>
-  </div>
-  </div>
-  </div>
-  );
-}
+import {useState} from 'react';export default function Home(){const[q,setQ]=useState('');const[r,setR]=useState([]);const[l,setL]=useState(false);const h=(e)=>{e.preventDefault();if(!q)return;setL(true);setR([]);fetch('/api/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})}).then(e=>e.json()).then(e=>{setR(e.results||[]);setL(false)}).catch(()=>{setR([]);setL(false)})};return(<div style={{minHeight:'100vh',background:'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',padding:'20px'}}><div style={{maxWidth:'900px',margin:'0 auto'}}><h1 style={{color:'white',textAlign:'center',fontSize:'2.5em',marginBottom:'10px'}}>🔍 AI Search Tool</h1><p style={{color:'rgba(255,255,255,0.9)',textAlign:'center',fontSize:'1.1em',marginBottom:'30px'}}>Busque na web com inteligencia artificial</p><form onSubmit={h} style={{display:'flex',gap:'10px',marginBottom:'30px'}}><input type="text" placeholder="Digite sua busca..." value={q} onChange={(e)=>setQ(e.target.value)} style={{flex:1,padding:'12px',fontSize:'16px',border:'none',borderRadius:'8px',outline:'none'}}/><button type="submit" disabled={l} style={{padding:'12px 30px',fontSize:'16px',fontWeight:'bold',background:'white',color:'#667eea',border:'none',borderRadius:'8px',cursor:'pointer'}}>{l?'Buscando...':'Buscar'}</button></form>{l&&<p style={{color:'white',textAlign:'center'}}>Carregando resultados...</p>}{r.length>0&&(<div style={{background:'white',padding:'20px',borderRadius:'8px'}}><h2 style={{color:'#333',marginBottom:'15px'}}>Resultados ({r.length})</h2>{r.map((e,i)=>(<div key={i} style={{marginBottom:'15px',paddingBottom:'15px',borderBottom:'1px solid #ddd'}}><a href={e.url||'#'} target="_blank" rel="noopener noreferrer" style={{color:'#667eea',textDecoration:'none',fontSize:'1.1em',fontWeight:'bold'}}>{e.title}</a><p style={{color:'#555',margin:'8px 0'}}>{e.description||e.excerpt}</p><small style={{color:'#999'}}>{e.url}</small></div>))}</div>)}</div></div>)}
